@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SANEVA — Propuesta para Inversores 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --orange:#FF6A00; --dark:#1F2328; --mid:#4A4F57;
+  --lgray:#F2F2F2; --white:#FFF; --border:#E0E0E0; --bg:#F4F4F2;
+  --red:#E24B4A; --blue:#185FA5; --green:#2C7A2C; --amber:#BA7517;
+  --font-h:'Barlow Condensed',sans-serif; --font-b:'Barlow',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);font-size:14px;line-height:1.5;}
+
+/* NAV */
+nav{background:var(--dark);height:56px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;border-bottom:3px solid var(--orange);}
+.nav-brand{font-family:var(--font-h);font-size:24px;font-weight:900;letter-spacing:1px;color:var(--white);}
+.nav-brand span{color:var(--orange);}
+.nav-links{display:flex;gap:2px;}
+.nav-links a{color:#AAA;font-size:11px;font-weight:700;padding:6px 10px;border-radius:3px;text-decoration:none;cursor:pointer;transition:all .15s;letter-spacing:.05em;text-transform:uppercase;}
+.nav-links a:hover{background:rgba(255,106,0,.15);color:var(--orange);}
+
+/* HERO */
+.hero{background:var(--dark);padding:4rem 2rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--orange);}
+.hero-bg{position:absolute;font-family:var(--font-h);font-size:220px;font-weight:900;color:rgba(255,106,0,.04);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;letter-spacing:10px;}
+.hero h1{font-family:var(--font-h);font-size:92px;font-weight:900;letter-spacing:4px;color:#F2F2F2;position:relative;line-height:1;}
+.hero h1 span{color:var(--orange);}
+.hero-tagline{font-family:var(--font-h);font-size:13px;font-weight:700;letter-spacing:.28em;color:#8A9BAA;text-transform:uppercase;margin-top:8px;position:relative;}
+.hero-tagline span{color:var(--orange);}
+.hero-narrative{max-width:680px;margin:20px auto 0;font-size:14px;color:#9AAAB4;line-height:1.7;position:relative;}
+.hero-narrative strong{color:#D0D8E0;}
+.hero-chips{display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap;position:relative;}
+.chip{background:rgba(255,106,0,.12);border:1px solid rgba(255,106,0,.3);color:#FF9040;font-size:10px;font-weight:700;padding:4px 13px;border-radius:2px;letter-spacing:.06em;text-transform:uppercase;}
+.chip.chip-highlight{background:var(--orange);color:#fff;border-color:var(--orange);}
+.hero-note{margin-top:14px;font-size:11px;color:#5A6A7A;font-style:italic;position:relative;}
+
+/* SCENARIO BAR */
+.sc-bar{background:var(--mid);padding:.7rem 2rem;display:flex;gap:8px;align-items:center;border-bottom:1px solid rgba(0,0,0,.2);}
+.sc-bar-label{color:#ccc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-right:6px;}
+.sc-btn{padding:5px 18px;border:1px solid rgba(255,255,255,.2);border-radius:2px;cursor:pointer;font-size:11px;font-weight:700;font-family:var(--font-b);letter-spacing:.05em;text-transform:uppercase;transition:all .2s;background:transparent;color:#ccc;}
+.sc-btn:hover{border-color:var(--orange);color:var(--orange);}
+.sc-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);}
+
+/* LAYOUT */
+main{max-width:1140px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+section{margin-bottom:2.8rem;}
+.sh{font-family:var(--font-h);font-size:24px;font-weight:800;color:var(--dark);letter-spacing:.5px;margin-bottom:1rem;display:flex;align-items:center;gap:10px;text-transform:uppercase;}
+.sh::before{content:'';display:block;width:4px;height:22px;background:var(--orange);border-radius:2px;flex-shrink:0;}
+.pill{font-family:var(--font-b);font-size:10px;font-weight:700;padding:3px 10px;border-radius:2px;background:rgba(255,106,0,.1);color:var(--orange);letter-spacing:.05em;text-transform:uppercase;}
+.pill-green{background:rgba(44,122,44,.1);color:#2C7A2C;}
+.pill-blue{background:rgba(24,95,165,.1);color:#185FA5;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:1.3rem 1.5rem;}
+.info-box{border-radius:4px;padding:10px 15px;font-size:12px;line-height:1.7;margin-bottom:1rem;}
+.badge{font-size:11px;padding:3px 10px;border-radius:2px;font-weight:700;display:inline-block;white-space:nowrap;}
+.divider{border:none;border-top:1px solid var(--lgray);margin:9px 0;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--lgray);font-size:13px;gap:8px;}
+.row:last-child{border-bottom:none;}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.kpi{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:1rem 1.1rem;position:relative;overflow:hidden;}
+.kpi::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--kpi-color,var(--orange));}
+.kpi-label{font-size:10px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.kpi-value{font-family:var(--font-h);font-size:24px;font-weight:800;color:var(--kpi-color,var(--orange));line-height:1.1;}
+.kpi-sub{font-size:11px;color:var(--mid);margin-top:4px;line-height:1.3;}
+
+/* ACCORDION / DETAILS */
+details.cost-group{margin-bottom:4px;}
+details.cost-group summary{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--lgray);border-radius:3px;cursor:pointer;list-style:none;font-weight:700;font-size:13px;border-left:3px solid var(--orange);transition:background .15s;}
+details.cost-group summary::-webkit-details-marker{display:none;}
+details.cost-group summary::after{content:'＋';font-size:14px;color:var(--orange);font-weight:900;transition:transform .2s;}
+details.cost-group[open] summary::after{content:'－';}
+details.cost-group[open] summary{background:#FFE8D6;}
+details.cost-group summary .rubro-name{flex:1;}
+details.cost-group summary .rubro-total{font-family:var(--font-h);font-size:16px;color:var(--orange);margin-right:12px;}
+.cost-items{background:#FAFAF8;border:1px solid var(--border);border-top:none;border-radius:0 0 3px 3px;padding:0 14px;}
+.cost-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #EFEFED;font-size:12px;color:var(--mid);}
+.cost-item:last-child{border-bottom:none;}
+.cost-item span:last-child{font-weight:600;color:var(--dark);}
+.cost-item.zero span:last-child{color:#B0B0B0;font-style:italic;}
+.cost-total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--dark);border-radius:3px;margin-top:8px;}
+.cost-total-row span:first-child{color:#ccc;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+.cost-total-row span:last-child{font-family:var(--font-h);font-size:20px;font-weight:800;color:var(--orange);}
+.cost-ref-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,106,0,.08);border:1px solid rgba(255,106,0,.3);border-radius:3px;margin-top:6px;}
+.cost-ref-row span:first-child{color:var(--mid);font-size:12px;font-weight:600;}
+.cost-ref-row span:last-child{font-family:var(--font-h);font-size:18px;font-weight:800;color:var(--orange);}
+
+/* INVERSION PLACEHOLDER */
+.inv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.inv-item{background:var(--lgray);border-radius:3px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-left:3px solid #CCC;}
+.inv-item-label{font-size:12px;font-weight:600;color:var(--mid);}
+.inv-item-val{font-size:12px;font-weight:700;color:#AAA;font-style:italic;}
+.inv-note{background:#FFF8F0;border:1px solid rgba(255,106,0,.25);border-radius:4px;padding:10px 15px;font-size:12px;color:#854F0B;margin-top:8px;line-height:1.6;}
+
+/* SEGMENT GRID */
+.seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1rem;}
+.seg-card{border-radius:4px;padding:1rem 1.1rem;border-top:3px solid;}
+.seg-title{font-family:var(--font-h);font-size:15px;font-weight:800;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
+.seg-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+.seg-row:last-child{border-bottom:none;}
+
+/* RUNWAY */
+.rw-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;}
+.rw-block{border-radius:4px;padding:1.2rem 1.3rem;}
+.rw-title{font-family:var(--font-h);font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.rw-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.07);font-size:13px;}
+.rw-row:last-child{border-bottom:none;}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;}
+.fh{font-size:10px;font-weight:700;text-align:center;padding:5px 2px;color:var(--mid);text-transform:uppercase;letter-spacing:.04em;}
+.fl{font-size:10px;font-weight:700;padding:4px 6px 4px 2px;display:flex;align-items:center;color:var(--mid);white-space:nowrap;text-transform:uppercase;letter-spacing:.03em;}
+.fc{font-size:10px;font-weight:700;text-align:center;padding:3px 2px;border-radius:3px;line-height:1.25;}
+.fc-qty{font-size:9px;font-weight:500;opacity:.7;margin-top:1px;}
+.fc-dual{display:flex;flex-direction:column;align-items:center;}
+
+/* CHART */
+.chart-wrap{position:relative;height:260px;}
+
+/* UPSIDE */
+.upside-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.upside-card{border-radius:4px;padding:1.2rem;border-left:4px solid;}
+.upside-num{font-family:var(--font-h);font-size:40px;font-weight:900;line-height:1;}
+.upside-title{font-family:var(--font-h);font-size:15px;font-weight:800;margin:5px 0;text-transform:uppercase;letter-spacing:.5px;}
+.upside-desc{font-size:12px;line-height:1.55;opacity:.88;}
+.upside-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:2px;margin-top:8px;text-transform:uppercase;letter-spacing:.04em;}
+
+/* PENDING */
+.pending-wrap{background:var(--white);border:2px dashed var(--border);border-radius:4px;padding:1.5rem;}
+.pending-badge{background:rgba(255,106,0,.1);color:var(--orange);font-size:11px;font-weight:700;padding:4px 12px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em;}
+.struct-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.2rem;}
+.struct-card{border-radius:4px;padding:1.1rem 1.2rem;}
+.struct-title{font-family:var(--font-h);font-size:15px;font-weight:800;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
+.srow{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+.srow:last-child{border-bottom:none;}
+.pend-list{display:flex;flex-direction:column;gap:7px;}
+.pend-item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--lgray);border-radius:3px;}
+.pend-num{width:22px;height:22px;border-radius:2px;background:var(--orange);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.pend-text strong{font-size:13px;color:var(--dark);display:block;margin-bottom:2px;font-weight:700;}
+.pend-text span{font-size:12px;color:var(--mid);line-height:1.5;}
+.comp-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;}
+.comp-tbl th{background:var(--dark);color:#fff;padding:8px 10px;font-size:11px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.05em;}
+.comp-tbl th:first-child{text-align:left;}
+.comp-tbl td{padding:7px 10px;border-bottom:1px solid var(--lgray);text-align:center;}
+.comp-tbl td:first-child{text-align:left;color:var(--mid);font-weight:600;}
+
+
+/* PITCH */
+.pitch-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;}
+.pitch-step{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;background:var(--white);border:1px solid var(--border);border-radius:4px;margin-bottom:8px;border-left:3px solid var(--orange);}
+.pitch-num{width:24px;height:24px;border-radius:3px;background:var(--orange);color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-h);}
+.pitch-text strong{display:block;font-size:13px;color:var(--dark);margin-bottom:2px;}
+.pitch-text span{font-size:12px;color:var(--mid);line-height:1.55;}
+.pitch-script{background:var(--dark);border-radius:4px;padding:1.2rem 1.3rem;color:#D0D8E0;font-size:13px;line-height:1.75;border-top:3px solid var(--orange);}
+.pitch-script strong{color:#FF9040;}
+@media(max-width:768px){.pitch-grid{grid-template-columns:1fr;}}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text-align:center;padding:2rem;}
+.footer-logo{font-family:var(--font-h);font-size:24px;font-weight:900;color:var(--white);letter-spacing:2px;margin-bottom:5px;}
+.footer-logo span{color:var(--orange);}
+.footer-sub{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#444;margin-bottom:8px;}
+
+@media(max-width:768px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .seg-grid,.struct-grid,.upside-grid,.inv-grid{grid-template-columns:1fr;}
+  .rw-grid{grid-template-columns:1fr;}
+  .hero h1{font-size:60px;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">SANE<span>VA</span></div>
+  <div class="nav-links">
+    <a onclick="s('s-costos')">Costos</a>
+    <a onclick="s('s-kpi')">Indicadores</a>
+    <a onclick="s('s-runway')">Runway</a>
+    
+    <a onclick="s('s-flujo')">Flujo</a>
+    <a onclick="s('s-upside')">Upside</a>
+    <a onclick="s('s-struct')">Estructura</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">SANEVA</div>
+  <h1>SANE<span>VA</span></h1>
+  <p class="hero-tagline">Saneamiento <span>•</span> Higiene <span>•</span> Fumigación <span>•</span> Norpatagonia</p>
+  <p class="hero-narrative">
+    SANEVA inicia con servicios de rápida salida comercial, pero el objetivo económico está en construir
+    <strong>cartera recurrente B2B: industria, depósitos, consorcios y gastronomía.</strong>
+    Los primeros meses son de aprendizaje, ajuste operativo y captación. El modelo alcanza break even en diciembre.
+  </p>
+  <div class="hero-chips">
+    <span class="chip">Inicio: Agosto 2026</span>
+    <span class="chip chip-highlight">BE Operativo: Diciembre 2026</span>
+    <span class="chip">Estructura mensual: $10M</span>
+    <span class="chip">Capital: $60M</span>
+    <span class="chip">Foco: Industria · Depósitos · Consorcios</span>
+    <span class="chip">Norpatagonia</span>
+  </div>
+  <p class="hero-note">Proyección conservadora · Higiene Industrial y expansión geográfica no incluidas en esta proyección.</p>
+</div>
+
+<!-- SCENARIO BAR (solo conservador por ahora — modelo es único) -->
+<div class="sc-bar">
+  <span class="sc-bar-label">Vista:</span>
+  <button class="sc-btn active" onclick="setView('conservador',this)">Conservador (base)</button>
+  <button class="sc-btn" onclick="setView('optimista',this)">Si supera expectativas</button>
+</div>
+
+<main>
+
+<!-- 1. COSTOS -->
+<section id="s-costos">
+  <h2 class="sh">Estructura de costos</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+
+    <!-- RECURRENTES -->
+    <div>
+      <div style="font-family:var(--font-h);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid);margin-bottom:10px;border-bottom:2px solid var(--orange);padding-bottom:6px;">Costos recurrentes mensuales</div>
+
+      <details class="cost-group">
+        <summary><span class="rubro-name">Mano de obra</span><span class="rubro-total">$5.600.000</span></summary>
+        <div class="cost-items">
+          <div class="cost-item"><span>MO operativa / fumigador</span><span>$2.800.000</span></div>
+          <div class="cost-item"><span>Ayudante / aprendiz</span><span>$1.500.000</span></div>
+          <div class="cost-item"><span>ART / cargas / seguros</span><span>$1.000.000</span></div>
+          <div class="cost-item"><span>Viáticos / adicionales</span><span>$300.000</span></div>
+        </div>
+      </details>
+
+      <details class="cost-group">
+        <summary><span class="rubro-name">Movilidad</span><span class="rubro-total">$630.000</span></summary>
+        <div class="cost-items">
+          <div class="cost-item"><span>Nafta</span><span>$360.000</span></div>
+          <div class="cost-item"><span>Peajes / estacionamiento</span><span>$80.000</span></div>
+          <div class="cost-item"><span>Seguro vehículo</span><span>$140.000</span></div>
+          <div class="cost-item zero"><span>Mantenimiento vehículo</span><span>$0 por ahora</span></div>
+          <div class="cost-item"><span>Lavado / higiene vehículo</span><span>$50.000</span></div>
+        </div>
+      </details>
+
+      <details class="cost-group">
+        <summary><span class="rubro-name">Insumos técnicos</span><span class="rubro-total">$530.000</span></summary>
+        <div class="cost-items">
+          <div class="cost-item"><span>Químicos</span><span>$450.000</span></div>
+          <div class="cost-item"><span>Descartables</span><span>$80.000</span></div>
+          <div class="cost-item zero"><span>EPP / filtros / reposición</span><span>$0 por ahora</span></div>
+          <div class="cost-item zero"><span>Herramientas menores</span><span>$0 por ahora</span></div>
+          <div class="cost-item zero"><span>Mantenimiento equipos</span><span>$0 por ahora</span></div>
+        </div>
+      </details>
+
+      <details class="cost-group">
+        <summary><span class="rubro-name">Administración</span><span class="rubro-total">$1.000.000</span></summary>
+        <div class="cost-items">
+          <div class="cost-item"><span>Comida e higiene</span><span>$120.000</span></div>
+          <div class="cost-item"><span>Librería</span><span>$150.000</span></div>
+          <div class="cost-item"><span>Contador</span><span>$350.000</span></div>
+          <div class="cost-item"><span>Teléfono / internet</span><span>$80.000</span></div>
+          <div class="cost-item zero"><span>Software / facturación / CRM</span><span>$0 por ahora</span></div>
+          <div class="cost-item"><span>Impuestos / tasas</span><span>$300.000</span></div>
+        </div>
+      </details>
+
+      <details class="cost-group">
+        <summary><span class="rubro-name">Comercial</span><span class="rubro-total">$600.000</span></summary>
+        <div class="cost-items">
+          <div class="cost-item"><span>Publicidad / Google Ads</span><span>$350.000</span></div>
+          <div class="cost-item"><span>Diseño / folletería</span><span>$250.000</span></div>
+          <div class="cost-item zero"><span>Uniformes / imagen</span><span>$0 por ahora</span></div>
+          <div class="cost-item zero"><span>Ploteo / cartelería prorrateada</span><span>$0 por ahora</span></div>
+        </div>
+      </details>
+
+      <details class="cost-group">
+        <summary><span class="rubro-name">Legales / habilitaciones</span><span class="rubro-total">$650.000</span></summary>
+        <div class="cost-items">
+          <div class="cost-item"><span>Habilitación prorrateada</span><span>$450.000</span></div>
+          <div class="cost-item"><span>Matrículas / registros</span><span>$120.000</span></div>
+          <div class="cost-item"><span>Seguro responsabilidad civil</span><span>$80.000</span></div>
+          <div class="cost-item zero"><span>Capacitación técnica</span><span>$0 por ahora</span></div>
+        </div>
+      </details>
+
+      <div class="cost-total-row" style="margin-top:10px;">
+        <span>Subtotal cargado actual</span><span>$9.010.000</span>
+      </div>
+      <div class="cost-ref-row">
+        <span>Estructura mensual de referencia (con margen)</span><span>$10.000.000</span>
+      </div>
+    </div>
+
+    <!-- INVERSION INICIAL -->
+    <div>
+      <div style="font-family:var(--font-h);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid);margin-bottom:10px;border-bottom:2px solid var(--orange);padding-bottom:6px;">Inversión inicial — única vez</div>
+      <div class="inv-note" style="margin-bottom:10px;">
+        <strong style="color:var(--orange);">Capital de puesta en marcha.</strong> Separado del costo mensual y del runway operativo. Los valores pueden ajustarse con cotizaciones finales, pero ya permiten conversar con inversores.
+      </div>
+      <div class="inv-grid" style="grid-template-columns:1fr;">
+        <div class="inv-item" style="border-left-color:var(--orange);"><span class="inv-item-label">Vehículo + adaptación + ploteo</span><span class="inv-item-val" style="color:var(--dark);font-style:normal;">$25.000.000</span></div>
+        <div class="inv-item" style="border-left-color:var(--orange);"><span class="inv-item-label">Equipamiento técnico operativo</span><span class="inv-item-val" style="color:var(--dark);font-style:normal;">$4.000.000</span></div>
+        <div class="inv-item"><span class="inv-item-label">Stock inicial de químicos / insumos</span><span class="inv-item-val" style="color:var(--dark);font-style:normal;">$500.000</span></div>
+        <div class="inv-item"><span class="inv-item-label">Imagen y marca</span><span class="inv-item-val" style="color:var(--dark);font-style:normal;">$300.000</span></div>
+        <div class="inv-item"><span class="inv-item-label">Habilitación y adecuación de local</span><span class="inv-item-val" style="color:var(--dark);font-style:normal;">$1.000.000</span></div>
+        <div class="inv-item"><span class="inv-item-label">Reclutamiento / incorporación</span><span class="inv-item-val" style="color:var(--dark);font-style:normal;">$4.000.000</span></div>
+        <div class="inv-item"><span class="inv-item-label">Marketing de lanzamiento</span><span class="inv-item-val" style="color:var(--dark);font-style:normal;">$1.000.000</span></div>
+      </div>
+      <div class="cost-total-row" style="margin-top:10px;">
+        <span>Total inversión inicial estimada</span><span>$35.800.000</span>
+      </div>
+      <div class="cost-ref-row">
+        <span>Runway operativo prudente</span><span>$20.000.000</span>
+      </div>
+      <div class="cost-ref-row" style="background:#FFF8F0;">
+        <span>Capital a levantar, con margen</span><span>$60.000.000</span>
+      </div>
+      <div class="info-box" style="background:#FFF8F0;border-left:3px solid var(--orange);margin-top:10px;">
+        <strong style="color:var(--orange);">Separación clave para el inversor:</strong><br>
+        <span style="color:var(--dark);">
+          <strong>1. Inversión inicial:</strong> activos, equipamiento, habilitación y lanzamiento.<br>
+          <strong>2. Costo recurrente:</strong> estructura mensual de operación ($10M/mes).<br>
+          <strong>3. Runway operativo:</strong> capital para cubrir la rampa comercial hasta el BE.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TICKETS POR SEGMENTO -->
+<section>
+  <h2 class="sh">Segmentos y tickets promedio <span class="pill">Captación desde mes 1 · B2B activo desde mes 2</span></h2>
+  <div class="seg-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="seg-card" style="background:#F8F8FF;border-top-color:#534AB7;">
+      <div class="seg-title" style="color:#534AB7;">🏠 Casas</div>
+      <div class="seg-row"><span style="color:#534AB7;">Ticket promedio</span><span style="font-weight:700;">$175.000</span></div>
+      <div class="seg-row"><span style="color:#534AB7;">Tipo</span><span>Puntual / estacional</span></div>
+      <div class="seg-row"><span style="color:#534AB7;">Rol estratégico</span><span>Volumen y aprendizaje</span></div>
+      <div class="seg-row"><span style="color:#534AB7;">Pico esperado</span><span style="font-weight:700;">Oct–Ene</span></div>
+    </div>
+    <div class="seg-card" style="background:#F5F8FF;border-top-color:#185FA5;">
+      <div class="seg-title" style="color:#185FA5;">🛒 Comercio</div>
+      <div class="seg-row"><span style="color:#185FA5;">Ticket promedio</span><span style="font-weight:700;">$150.000/mes</span></div>
+      <div class="seg-row"><span style="color:#185FA5;">Tipo</span><span>MIP recurrente mensual</span></div>
+      <div class="seg-row"><span style="color:#185FA5;">Driver</span><span>Normativa SENASA</span></div>
+      <div class="seg-row"><span style="color:#185FA5;">Acumula</span><span style="font-weight:700;">Cada mes suma</span></div>
+    </div>
+    <div class="seg-card" style="background:#FFFBF5;border-top-color:#BA7517;">
+      <div class="seg-title" style="color:#BA7517;">🍽️ Gastronomía</div>
+      <div class="seg-row"><span style="color:#BA7517;">Ticket promedio</span><span style="font-weight:700;">$225.000/mes</span></div>
+      <div class="seg-row"><span style="color:#BA7517;">Tipo</span><span>MIP recurrente mensual</span></div>
+      <div class="seg-row"><span style="color:#BA7517;">Driver</span><span>Normativa SENASA</span></div>
+      <div class="seg-row"><span style="color:#BA7517;">Acumula</span><span style="font-weight:700;">Cada mes suma</span></div>
+    </div>
+    <div class="seg-card" style="background:#F5FFF8;border-top-color:#2C7A2C;">
+      <div class="seg-title" style="color:#2C7A2C;">🏭 Depósitos</div>
+      <div class="seg-row"><span style="color:#2C7A2C;">Ticket promedio</span><span style="font-weight:700;">$350.000/mes</span></div>
+      <div class="seg-row"><span style="color:#2C7A2C;">Tipo</span><span>MIP recurrente mensual</span></div>
+      <div class="seg-row"><span style="color:#2C7A2C;">Perfil</span><span>Depósitos industriales/logísticos</span></div>
+      <div class="seg-row"><span style="color:#2C7A2C;">Acumula</span><span style="font-weight:700;">Cada mes suma</span></div>
+    </div>
+    <div class="seg-card" style="background:#FFF5F8;border-top-color:#C2185B;">
+      <div class="seg-title" style="color:#C2185B;">🏢 Consorcios</div>
+      <div class="seg-row"><span style="color:#C2185B;">Ticket promedio</span><span style="font-weight:700;">$700.000/mes</span></div>
+      <div class="seg-row"><span style="color:#C2185B;">Tipo</span><span>Contrato recurrente</span></div>
+      <div class="seg-row"><span style="color:#C2185B;">Perfil</span><span>Edificios / complejos</span></div>
+      <div class="seg-row"><span style="color:#C2185B;">Acumula</span><span style="font-weight:700;">Cada mes suma</span></div>
+    </div>
+    <div class="seg-card" style="background:#FFF8F0;border-top-color:var(--orange);">
+      <div class="seg-title" style="color:var(--orange);">🏗️ Industria</div>
+      <div class="seg-row"><span style="color:var(--orange);">Ticket promedio</span><span style="font-weight:700;">$700.000/mes</span></div>
+      <div class="seg-row"><span style="color:var(--orange);">Tipo</span><span>Contrato recurrente</span></div>
+      <div class="seg-row"><span style="color:var(--orange);">Perfil</span><span>Industria / Oil &amp; Gas / plantas</span></div>
+      <div class="seg-row"><span style="color:var(--orange);">Acumula</span><span style="font-weight:700;">Motor de crecimiento</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. KPIs -->
+<section id="s-kpi">
+  <h2 class="sh">Indicadores clave <span class="pill" id="sc-label">Escenario conservador</span></h2>
+  <div id="sc-desc" style="font-size:12px;color:var(--mid);margin-bottom:1rem;padding:8px 14px;background:var(--white);border-radius:4px;border:1px solid var(--border);border-left:3px solid var(--orange);"></div>
+  <div class="kpi-grid">
+    <div class="kpi" style="--kpi-color:var(--orange)">
+      <div class="kpi-label">Estructura mensual</div>
+      <div class="kpi-value">$10M</div>
+      <div class="kpi-sub">Referencia de operación mensual</div>
+    </div>
+    <div class="kpi" style="--kpi-color:#E24B4A">
+      <div class="kpi-label">BE operativo objetivo</div>
+      <div class="kpi-value" id="k-be">Mes 5 / Dic</div>
+      <div class="kpi-sub">Ingresos ≥ $10M/mes</div>
+    </div>
+    <div class="kpi" style="--kpi-color:#2C7A2C">
+      <div class="kpi-label">Facturación mes 6</div>
+      <div class="kpi-value" id="k-m6">$17,35M</div>
+      <div class="kpi-sub">Enero 2027 — post BE</div>
+    </div>
+    <div class="kpi" style="--kpi-color:#185FA5">
+      <div class="kpi-label">Servicios B2B mes 6</div>
+      <div class="kpi-value" id="k-b2b">35</div>
+      <div class="kpi-sub" id="k-b2b-sub">Comercio + Gastro + Dep. + Cons. + Ind.</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+    <div class="kpi" style="--kpi-color:#2C7A2C;">
+      <div class="kpi-label">Recupero saldo acumulado</div>
+      <div class="kpi-value">Mes 9</div>
+      <div class="kpi-sub">Marzo 2027 — el déficit operativo acumulado queda saldado. Distinto del BE mensual (Dic 2026).</div>
+    </div>
+    <div class="info-box" style="background:#F5F8FF;border-left:3px solid #185FA5;margin-bottom:0;">
+      <strong style="color:#185FA5;">BE mensual vs. recupero del saldo:</strong>
+      <span style="color:var(--dark);"> En diciembre el negocio genera más de lo que gasta cada mes. El saldo acumulado (déficit de los primeros meses) queda saldado en el mes 9. Son dos hitos distintos — ambos aparecen en la tabla y el gráfico.</span>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 4. RUNWAY -->
+<section id="s-runway">
+  <h2 class="sh">Runway operativo <span class="pill">Capital para sostener la rampa hasta el BE</span></h2>
+  <div class="info-box" style="background:#FFF8F0;border-left:3px solid var(--orange);">
+    <strong style="color:var(--orange);">El capital operativo no se usa para comprar activos.</strong>
+    <span style="color:var(--dark);"> Se usa para sostener la rampa comercial mientras el negocio crece hacia el break even mensual. Es el colchón que garantiza que SANEVA no se frena antes de ser autosustentable.</span>
+  </div>
+  <div class="rw-grid">
+    <div class="rw-block" style="background:#FCEBEB;">
+      <div class="rw-title" style="color:#791F1F;">Déficit acumulado proyectado</div>
+      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M1 Agosto</span><span style="font-weight:700;">−$7.475.000</span></div>
+      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M2 Septiembre</span><span style="font-weight:700;">−$5.700.000</span></div>
+      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M3 Octubre</span><span style="font-weight:700;">−$3.225.000</span></div>
+      <div class="rw-row" style="color:#E24B4A;"><span style="opacity:.8;">M4 Noviembre</span><span style="font-weight:700;">−$575.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;font-weight:700;"><span>M5 Diciembre ✓ BE</span><span>+$3.475.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;font-weight:700;"><span>M6 Enero</span><span>+$7.350.000</span></div>
+      <div style="border-top:1.5px solid rgba(226,75,74,.3);margin:8px 0;padding-top:8px;">
+        <div class="rw-row" style="color:#791F1F;font-size:14px;"><span style="font-weight:700;">Déficit máximo acumulado</span><span style="font-weight:800;">−$16.975.000</span></div>
+      </div>
+    </div>
+    <div class="rw-block" style="background:#EAF3DE;">
+      <div class="rw-title" style="color:#2C7A2C;">Capital operativo recomendado</div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Runway mínimo</span><span style="font-weight:700;">$17.000.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Runway prudente (recomendado)</span><span style="font-weight:800;font-size:15px;">$20.000.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Meses deficitarios</span><span style="font-weight:700;">4 meses (Ago–Nov)</span></div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Saldo acum. después M5</span><span style="font-weight:700;">−$13.500.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Saldo acum. después M6</span><span style="font-weight:700;">−$6.150.000</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(44,122,44,.1);border-radius:3px;font-size:11px;color:#2C7A2C;line-height:1.5;">
+        El runway prudente de $20M da margen ante demoras comerciales o imprevistos operativos en los primeros meses.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-family:var(--font-h);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:10px;">Composición del capital a levantar</div>
+    <div id="rw-bar-visual"></div>
+  </div>
+</section>
+
+<!-- 5. FLUJO -->
+<section id="s-flujo">
+  <h2 class="sh">Proyección — cantidad y monto por segmento</h2>
+  <div class="card" style="padding:.85rem .9rem;margin-bottom:10px;">
+    <div class="tbl-wrap">
+      <div id="tbl-head" style="margin-bottom:2px;"></div>
+      <div id="tbl-body"></div>
+    </div>
+    <div style="margin-top:9px;font-size:11px;color:var(--mid);line-height:1.6;">
+      Cada celda: <strong>cantidad de servicios</strong> y <strong>monto</strong>.
+      &nbsp;<span style="color:#E24B4A;font-weight:700;">●</span> Déficit mensual
+      &nbsp;<span style="color:#2C7A2C;font-weight:700;">★</span> Break even (Dic) &nbsp;<span style="color:#0F6E56;font-weight:700;">⭐</span> Recupero saldo acum. (Mes 9)
+      &nbsp;<span style="color:#185FA5;font-weight:700;">●</span> Superávit
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-family:var(--font-h);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:8px;">Facturación por segmento · Resultado mensual · Saldo acumulado</div>
+    <div class="chart-wrap"><canvas id="flowChart"></canvas></div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--mid);">
+      <span><span style="display:inline-block;width:10px;height:10px;background:#9F8FEF;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Casas</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#5BCFB0;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Comercio</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#FAC775;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Gastronomía</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#6DB86D;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Depósitos</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#E879A0;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Consorcios</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:var(--orange);border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Industria</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:rgba(226,75,74,.45);border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Estructura $10M</span>
+      <span><span style="display:inline-block;width:18px;border-top:2px dashed #185FA5;vertical-align:middle;margin-right:3px;"></span>Saldo acumulado</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5. HOJA DE RUTA -->
+<section id="s-upside">
+  <h2 class="sh">Hoja de ruta de servicios <span class="pill">El mismo cliente, más valor</span></h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+
+    <div style="background:#FFF8F0;border:1px solid rgba(255,106,0,.35);border-radius:4px;padding:1.1rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange);border-radius:4px 4px 0 0;"></div>
+      <div style="font-family:var(--font-h);font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;">Etapa 1 · Ago–Dic 2026</div>
+      <div style="font-family:var(--font-h);font-size:18px;font-weight:800;color:var(--dark);margin-bottom:7px;line-height:1.1;">Control de plagas</div>
+      <div style="font-size:12px;color:#854F0B;line-height:1.6;">Fumigación, desratización, desinsectación. Todos los segmentos. Construye cartera, reputación y procesos operativos.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;background:var(--orange);color:#fff;padding:3px 10px;border-radius:2px;display:inline-block;letter-spacing:.04em;">EN PROYECCIÓN</div>
+    </div>
+
+    <div style="background:#F5FFF8;border:1px solid #A0D8A0;border-radius:4px;padding:1.1rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#2C7A2C;border-radius:4px 4px 0 0;"></div>
+      <div style="font-family:var(--font-h);font-size:10px;font-weight:800;color:#2C7A2C;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;">Etapa 2 · Año 1</div>
+      <div style="font-family:var(--font-h);font-size:18px;font-weight:800;color:var(--dark);margin-bottom:7px;line-height:1.1;">Higiene industrial</div>
+      <div style="font-size:12px;color:#2C7A2C;line-height:1.6;">Sobre los clientes industriales captados: limpieza técnica de máquinas, equipos y tanques. Mayor margen.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;background:#EAF3DE;color:#2C7A2C;padding:3px 10px;border-radius:2px;display:inline-block;letter-spacing:.04em;">MISMO CLIENTE · +TICKET</div>
+    </div>
+
+    <div style="background:#FFF5F8;border:1px solid #E8A0B8;border-radius:4px;padding:1.1rem;position:relative;">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#C2185B;border-radius:4px 4px 0 0;"></div>
+      <div style="font-family:var(--font-h);font-size:10px;font-weight:800;color:#C2185B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;">Etapa 3 · Año 3</div>
+      <div style="font-family:var(--font-h);font-size:18px;font-weight:800;color:var(--dark);margin-bottom:7px;line-height:1.1;">Gestión de residuos</div>
+      <div style="font-size:12px;color:#C2185B;line-height:1.6;">Disposición final de residuos sólidos urbanos e industriales (RESPEL). Alta demanda en yacimientos y plantas. Requiere habilitación específica.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;background:#FCE4EC;color:#C2185B;padding:3px 10px;border-radius:2px;display:inline-block;letter-spacing:.04em;">CON HABILITACIÓN</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 6. ESTRUCTURA -->
+<section id="s-struct">
+  <h2 class="sh">Estructura para inversores <span class="pill">3 opciones</span></h2>
+  <div class="pending-wrap">
+    <div class="pending-badge">💼 Opciones de entrada — a conversar según perfil del inversor</div>
+    <p style="font-size:13px;color:var(--mid);margin-bottom:1.2rem;line-height:1.6;">
+      La propuesta permite tres caminos: participación directa, préstamo o una alternativa híbrida con opción de salida. La premisa es mantener una estructura simple, pocos inversores y reglas claras antes de iniciar operaciones.
+    </p>
+    <div class="struct-grid">
+      <div class="struct-card" style="background:#FFF8F0;border:2px solid var(--orange);">
+        <div style="font-size:10px;font-weight:800;color:var(--orange);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Opción A</div>
+        <div class="struct-title" style="color:var(--dark);">Equity</div>
+        <div style="font-size:11px;color:#854F0B;margin-bottom:9px;line-height:1.4;">Ingreso como socio inversor con participación accionaria desde el inicio.</div>
+        <div class="srow"><span>Aporte inversor</span><span style="font-weight:800;color:var(--orange);">$30.000.000</span></div>
+        <div class="srow"><span>Participación</span><span style="font-weight:800;color:var(--orange);">20%</span></div>
+        <div class="srow"><span>Retorno</span><span style="font-weight:700;">Dividendos / valorización</span></div>
+        <div class="srow"><span>Perfil</span><span style="font-weight:700;color:#2C7A2C;">Capital paciente</span></div>
+      </div>
+      <div class="struct-card" style="background:#F8F8FF;border:1px solid #AFA9EC;">
+        <div style="font-size:10px;font-weight:800;color:#534AB7;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Opción B</div>
+        <div class="struct-title" style="color:#534AB7;">Préstamo</div>
+        <div style="font-size:11px;color:#534AB7;margin-bottom:9px;line-height:1.4;">Capital con retorno fijo. No diluye participación. Relación financiera con plazo definido.</div>
+        <div class="srow" style="color:#534AB7;"><span>Interés</span><span style="font-weight:800;">25% anual</span></div>
+        <div class="srow" style="color:#534AB7;"><span>Cancelación</span><span style="font-weight:800;">Al año</span></div>
+        <div class="srow" style="color:#534AB7;"><span>Equity</span><span style="font-weight:700;">0%</span></div>
+        <div class="srow" style="color:#534AB7;"><span>Perfil</span><span style="font-weight:700;">Retorno definido</span></div>
+      </div>
+      <div class="struct-card" style="background:#F0FFF8;border:1px solid #5DCAA5;">
+        <div style="font-size:10px;font-weight:800;color:#085041;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Opción C</div>
+        <div class="struct-title" style="color:#085041;">Híbrido</div>
+        <div style="font-size:11px;color:#0F6E56;margin-bottom:9px;line-height:1.4;">Comienza como equity. Al año, el inversor puede optar por salida con reintegro total.</div>
+        <div class="srow" style="color:#085041;"><span>Inicio</span><span style="font-weight:800;">Equity</span></div>
+        <div class="srow" style="color:#085041;"><span>Opción al año</span><span style="font-weight:800;">Reintegro total</span></div>
+        <div class="srow" style="color:#085041;"><span>Interés salida</span><span style="font-weight:800;">15% anual</span></div>
+        <div class="srow" style="color:#085041;"><span>Perfil</span><span style="font-weight:700;">Socio con puerta de salida</span></div>
+      </div>
+    </div>
+    <table class="comp-tbl">
+      <thead><tr>
+        <th>Criterio</th>
+        <th style="background:var(--orange);">A — Equity</th>
+        <th style="background:#534AB7;">B — Préstamo</th>
+        <th style="background:#085041;">C — Híbrido</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Participación en el negocio</td><td style="font-weight:700;color:var(--orange);">20%</td><td>No</td><td>Sí al inicio</td></tr>
+        <tr><td>Obligación de devolución</td><td>No fija</td><td style="font-weight:700;color:#E24B4A;">Sí, al año</td><td>Solo si ejerce salida</td></tr>
+        <tr><td>Retorno esperado</td><td>Dividendos + valorización</td><td>25% anual</td><td>Equity o salida 15% anual</td></tr>
+        <tr><td>Mejor para</td><td>Inversor estratégico</td><td>Inversor financiero</td><td>Inversor que quiere probar el proyecto</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-logo">SANE<span>VA</span></div>
+  <div class="footer-sub">Saneamiento · Higiene · Fumigación · Norpatagonia</div>
+  <div style="font-size:11px;">Proyección conservadora · Capital $60M · BE Diciembre 2026 · Recupero saldo Mes 9.</div>
+</footer>
+
+<script>
+// DATA
+const MESES = ['Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul'];
+const STRUCT = 10000000;
+
+const MESES12 = ['Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul'];
+
+const DATA = {
+  conservador: {
+    desc: 'Agosto–septiembre: aprendizaje y validación operativa. Octubre–noviembre: crecimiento B2B gradual. Diciembre: break even mensual. Mes 9 (Marzo): recupero del saldo acumulado.',
+    casas:     {n:[8,10,12,15,20,20,18,16,14,12,12,14], t:175000},
+    comercio:  {n:[3,4,5,6,7,8,9,10,11,12,13,14],       t:150000},
+    gastro:    {n:[3,4,5,6,7,8,9,10,11,12,13,14],        t:225000},
+    depositos: {n:[0,1,2,3,5,7,8,9,10,11,12,13],         t:350000},
+    consorcios:{n:[0,0,1,2,3,5,6,7,8,9,10,11],           t:700000},
+    industria: {n:[0,1,2,3,5,7,8,9,10,11,12,13],         t:700000},
+  },
+  optimista: {
+    desc: 'Si el modelo supera las metas conservadoras: más clientes B2B por mes, mejor conversión y primeros contratos industriales antes del mes 3.',
+    casas:     {n:[12,15,18,22,28,28,24,20,18,16,16,18], t:175000},
+    comercio:  {n:[4,6,8,10,12,14,16,18,20,22,24,26],    t:150000},
+    gastro:    {n:[4,5,7,9,11,13,15,17,19,21,23,25],     t:225000},
+    depositos: {n:[0,2,4,6,8,10,12,14,16,18,20,22],      t:350000},
+    consorcios:{n:[0,1,2,4,5,7,8,10,11,13,14,16],        t:700000},
+    industria: {n:[0,2,4,6,8,10,12,14,16,18,20,22],      t:700000},
+  }
+};
+
+const COLORS = {
+  casas:'#9F8FEF', comercio:'#5BCFB0', gastro:'#FAC775',
+  depositos:'#6DB86D', consorcios:'#E879A0', industria:'#FF6A00'
+};
+const SEG_LABELS = {casas:'🏠 Casas',comercio:'🛒 Comercio',gastro:'🍽️ Gastronomía',depositos:'🏭 Depósitos',consorcios:'🏢 Consorcios',industria:'🏗️ Industria'};
+
+const fmtM = n => {
+  const a=Math.abs(n), s=n<0?'-':'';
+  if(a>=1e6) return s+'$'+(Math.round(a/1e5)/10)+'M';
+  return s+'$'+Math.round(a/1000)+'k';
+};
+
+let chartInst = null;
+
+function computeMonths(view) {
+  const d = DATA[view];
+  const months = [];
+  let acSaldo = 0;
+  const segs = ['casas','comercio','gastro','depositos','consorcios','industria'];
+  for(let m=0;m<12;m++){
+    const row = {};
+    let tot = 0;
+    segs.forEach(sg => {
+      const ing = d[sg].n[m] * d[sg].t;
+      row[sg] = {n: d[sg].n[m], ing};
+      tot += ing;
+    });
+    const res = tot - STRUCT;
+    acSaldo += res;
+    row.tot = tot; row.res = res; row.saldo = acSaldo;
+    months.push(row);
+  }
+  return months;
+}
+
+function render(view) {
+  const d = DATA[view];
+  const months = computeMonths(view);
+  const segs = ['casas','comercio','gastro','depositos','consorcios','industria'];
+
+  document.getElementById('sc-label').textContent = view==='conservador'?'Escenario conservador':'Si supera expectativas';
+  document.getElementById('sc-desc').textContent = d.desc;
+
+  // KPIs
+  const be = months.findIndex(m=>m.res>=0);
+  document.getElementById('k-be').textContent = be>=0 ? 'Mes '+(be+1)+' / '+MESES[be] : '>M6';
+  document.getElementById('k-m6').textContent = fmtM(months[5].tot);
+  const b2bM6 = (d.comercio.n[5]+d.gastro.n[5]+d.depositos.n[5]+d.consorcios.n[5]+d.industria.n[5]);
+  document.getElementById('k-b2b').textContent = b2bM6;
+  document.getElementById('k-b2b-sub').textContent =
+    'Com:'+d.comercio.n[5]+' Gas:'+d.gastro.n[5]+' Dep:'+d.depositos.n[5]+' Cons:'+d.consorcios.n[5]+' Ind:'+d.industria.n[5];
+
+  // Runway bar
+  const runway = 20000000; // prudente
+  const inv = 35800000; // inversión inicial estimada
+  const margen = 4200000; // margen para redondear a 60M
+  const total = 60000000;
+  document.getElementById('rw-bar-visual').innerHTML = `
+    <div style="height:30px;border-radius:3px;overflow:hidden;display:flex;margin-bottom:8px;">
+      <div style="width:60%;background:#FF6A00;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
+        INVERSIÓN INICIAL $35,8M
+      </div>
+      <div style="width:33%;background:#E24B4A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
+        RUNWAY $20M
+      </div>
+      <div style="width:7%;background:#4A4F57;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
+        MG
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;font-size:11px;color:#4A4F57;align-items:center;flex-wrap:wrap;">
+      <span><span style="display:inline-block;width:10px;height:10px;background:#FF6A00;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Inversión inicial: <strong>$35,8M</strong></span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#E24B4A;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Runway prudente: <strong>$20M</strong></span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#4A4F57;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Margen de seguridad: <strong>$4,2M</strong></span>
+      <span style="margin-left:auto;font-weight:800;color:#1F2328;font-size:13px;">Capital: $60M</span>
+    </div>`;
+
+  // Table
+  // Find recupero month: first month where acSaldo >= 0
+  let recuperoIdx = months.findIndex(m=>m.saldo>=0);
+  if(recuperoIdx<0) recuperoIdx = 8; // fallback mes 9
+
+  const cols = `grid-template-columns:100px repeat(12,minmax(0,1fr))`;
+  let hdr = `<div style="display:grid;${cols};gap:0;margin-bottom:2px;"><div class="fh" style="text-align:left;">Segmento</div>`;
+  months.forEach((m,i)=>{
+    const isBe = m.res>=0 && (i===0||months[i-1].res<0);
+    const isRec = i===recuperoIdx;
+    const bg = isRec?'background:#E1F5EE;':(isBe?'background:#EAF3DE;':(m.res>=0?'background:#F0FAF0;':''));
+    const mark = isRec?' ⭐':(isBe?' ★':'');
+    hdr+=`<div class="fh" style="${bg}">${MESES[i]}${mark}<br><span style="font-weight:400;opacity:.6;font-size:9px;">${m.res>=0?'▲':'▼'} ${fmtM(m.res)}</span></div>`;
+  });
+  hdr+='</div>';
+  document.getElementById('tbl-head').innerHTML = hdr;
+
+  let tbl = '';
+  segs.forEach(sg => {
+    tbl+=`<div style="display:grid;${cols};gap:0;margin-bottom:1px;">`;
+    tbl+=`<div class="fl" style="color:${COLORS[sg]};">${SEG_LABELS[sg]}</div>`;
+    months.forEach((m,i)=>{
+      const v=m[sg].ing, n=m[sg].n;
+      const isBe=m.res>=0&&(i===0||months[i-1].res<0);
+      const isRec=i===recuperoIdx;
+      const ol=isRec?'outline:2px solid #0F6E56;':(isBe?'outline:1.5px solid #2C7A2C;':'');
+      tbl+=`<div class="fc fc-dual" style="background:${COLORS[sg]}18;color:${COLORS[sg]};${ol}">
+        <div>${v>0?fmtM(v):'—'}</div>
+        ${n>0?`<div class="fc-qty">${n} serv.</div>`:''}
+      </div>`;
+    });
+    tbl+='</div>';
+  });
+  // Total, estructura, resultado, saldo
+  const extraRows = [
+    {lbl:'💰 Facturación',key:'tot',bg:'#F0FFF0',col:'#2C7A2C',bold:true},
+    {lbl:'📉 Estructura',key:'eg',bg:'#FFF0F0',col:'#791F1F'},
+    {lbl:'📊 Resultado',key:'res',dyn:true},
+    {lbl:'🏦 Saldo acum.',key:'saldo',dynS:true},
+  ];
+  extraRows.forEach(r=>{
+    tbl+=`<div style="display:grid;${cols};gap:0;margin-bottom:1px;">`;
+    tbl+=`<div class="fl" style="font-weight:700;color:${r.col||'#4A4F57'};">${r.lbl}</div>`;
+    months.forEach((m,i)=>{
+      const v=r.key==='eg'?STRUCT:m[r.key];
+      const isBe=m.res>=0&&(i===0||months[i-1].res<0);
+      const isRec=i===recuperoIdx;
+      let bg,col,txt;
+      if(r.dyn){bg=v>=0?'#E8F8E8':'#FEECEC';col=v>=0?'#2C7A2C':'#791F1F';txt=(v>=0?'+':'')+fmtM(v);}
+      else if(r.dynS){bg=v>=0?'#E8F8E8':'#FEECEC';col=v>=0?'#2C7A2C':'#791F1F';txt=fmtM(v);}
+      else{bg=r.bg;col=r.col;txt=fmtM(v);}
+      const ol=isRec?'outline:2px solid #0F6E56;':(isBe?'outline:1.5px solid #2C7A2C;':'');
+      tbl+=`<div class="fc" style="background:${bg};color:${col};${ol}font-weight:700;">${txt}</div>`;
+    });
+    tbl+='</div>';
+  });
+  document.getElementById('tbl-body').innerHTML = tbl;
+
+  // Chart
+  const labels = MESES12;
+  const datasets = segs.map(sg=>({
+    label:SEG_LABELS[sg],
+    data:months.map(m=>+(m[sg].ing/1e6).toFixed(2)),
+    backgroundColor:COLORS[sg],
+    stack:'ing'
+  }));
+  datasets.push({label:'Estructura $10M',data:months.map(()=>10),backgroundColor:'rgba(226,75,74,.4)',stack:'eg'});
+  datasets.push({
+    label:'Saldo acum.',
+    data:months.map(m=>+(m.saldo/1e6).toFixed(2)),
+    type:'line',borderColor:'#185FA5',backgroundColor:'transparent',
+    borderWidth:2,tension:0.3,yAxisID:'y',
+    pointRadius:months.map((m,i)=>(m.res>=0&&(i===0||months[i-1].res<0))?7:3),
+    pointBackgroundColor:months.map(m=>m.saldo>=0?'#2C7A2C':'#E24B4A'),
+    pointStyle:months.map((m,i)=>(m.res>=0&&(i===0||months[i-1].res<0))?'star':'circle'),
+  });
+
+  if(chartInst) chartInst.destroy();
+  chartInst = new Chart(document.getElementById('flowChart').getContext('2d'),{
+    type:'bar',
+    data:{labels,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,callbacks:{label:c=>c.dataset.label+': $'+c.parsed.y.toFixed(1)+'M'}}},
+      scales:{
+        x:{stacked:true,ticks:{font:{size:11},autoSkip:false},grid:{display:false}},
+        y:{stacked:true,ticks:{callback:v=>v+'M',font:{size:10}},grid:{color:'rgba(0,0,0,.05)'}},
+      }
+    }
+  });
+}
+
+function s(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
+function setView(v,btn){
+  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render(v);
+}
+render('conservador');
+</script>
+</body>
+</html>
