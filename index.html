@@ -160,6 +160,25 @@ details.cost-group summary .rubro-total{font-family:var(--font-h);font-size:16px
 .pitch-script strong{color:#FF9040;}
 @media(max-width:768px){.pitch-grid{grid-template-columns:1fr;}}
 
+
+/* ANEXO FINANCIERO */
+.annex-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.annex-table{width:100%;border-collapse:collapse;font-size:11px;background:#fff;border:1px solid var(--border);}
+.annex-table th{background:var(--dark);color:#fff;padding:7px 6px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.04em;}
+.annex-table th:first-child,.annex-table td:first-child{text-align:left;}
+.annex-table td{padding:6px;border-bottom:1px solid var(--lgray);text-align:right;color:var(--mid);}
+.annex-table tr:nth-child(even) td{background:#FAFAF8;}
+.annex-table .pos{color:#2C7A2C;font-weight:800;}
+.annex-table .neg{color:#791F1F;font-weight:800;}
+.cash-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:1.1rem;border-left:4px solid var(--orange);}
+.cash-card h3{font-family:var(--font-h);font-size:17px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;color:var(--dark);}
+.cash-card p{font-size:12px;color:var(--mid);line-height:1.6;}
+.use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
+.use-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:1rem 1.1rem;border-top:3px solid var(--orange);}
+.use-card strong{font-family:var(--font-h);font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:var(--dark);display:block;margin-bottom:5px;}
+.use-card span{font-size:12px;color:var(--mid);line-height:1.55;display:block;}
+@media(max-width:768px){.annex-grid,.use-grid{grid-template-columns:1fr;}}
+
 /* FOOTER */
 footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text-align:center;padding:2rem;}
 .footer-logo{font-family:var(--font-h);font-size:24px;font-weight:900;color:var(--white);letter-spacing:2px;margin-bottom:5px;}
@@ -188,6 +207,7 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
     <a onclick="s('s-flujo')">Flujo</a>
     <a onclick="s('s-upside')">Upside</a>
     <a onclick="s('s-struct')">Estructura</a>
+    <a onclick="s('s-anexo')">Anexo</a>
   </div>
 </nav>
 
@@ -199,13 +219,13 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
   <p class="hero-narrative">
     SANEVA inicia con servicios de rápida salida comercial, pero el objetivo económico está en construir
     <strong>cartera recurrente B2B: industria, depósitos, consorcios y gastronomía.</strong>
-    Los primeros meses son de aprendizaje, ajuste operativo y captación. El modelo alcanza break even en diciembre.
+    Los primeros meses son de aprendizaje, ajuste operativo y captación. El modelo alcanza break even en diciembre y proyecta una facturación anual cercana a $190M.
   </p>
   <div class="hero-chips">
     <span class="chip">Inicio: Agosto 2026</span>
     <span class="chip chip-highlight">BE Operativo: Diciembre 2026</span>
-    <span class="chip">Estructura mensual: $10M</span>
-    <span class="chip">Capital: $60M</span>
+    <span class="chip">Base + variable por volumen</span>
+    <span class="chip">Capital objetivo: $76M</span>
     <span class="chip">Foco: Industria · Depósitos · Consorcios</span>
     <span class="chip">Norpatagonia</span>
   </div>
@@ -228,7 +248,7 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
 
     <!-- RECURRENTES -->
     <div>
-      <div style="font-family:var(--font-h);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid);margin-bottom:10px;border-bottom:2px solid var(--orange);padding-bottom:6px;">Costos recurrentes mensuales</div>
+      <div style="font-family:var(--font-h);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid);margin-bottom:10px;border-bottom:2px solid var(--orange);padding-bottom:6px;">Costos mensuales base y variables</div>
 
       <details class="cost-group">
         <summary><span class="rubro-name">Mano de obra</span><span class="rubro-total">$5.600.000</span></summary>
@@ -298,7 +318,15 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
         <span>Subtotal cargado actual</span><span>$9.010.000</span>
       </div>
       <div class="cost-ref-row">
-        <span>Estructura mensual de referencia (con margen)</span><span>$10.000.000</span>
+        <span>Modelo de costos usado en flujo</span><span>$9,02M → $10,97M</span>
+      </div>
+      <div class="info-box" style="background:#FFF8F0;border-left:3px solid var(--orange);margin-top:10px;">
+        <strong style="color:var(--orange);">Criterio de modelado:</strong>
+        <span style="color:var(--dark);"> para que la proyección no trate igual 14 servicios que 79 servicios mensuales, el flujo usa una <strong>base operativa fija de $8,6M</strong> más un <strong>costo variable promedio de $30.000 por servicio</strong>.</span>
+      </div>
+      <div class="info-box" style="background:#F5F8FF;border-left:3px solid #185FA5;margin-top:10px;">
+        <strong style="color:#185FA5;">Compensación fundador:</strong>
+        <span style="color:var(--dark);"> no se retira sueldo durante la etapa deficitaria. Desde el BE operativo se incorpora una dirección de <strong>$3.000.000 mensuales</strong> por tres meses; desde marzo, <strong>$3M + 5% de facturación mensual</strong> como variable de dirección.</span>
       </div>
     </div>
 
@@ -324,7 +352,7 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
         <span>Runway operativo prudente</span><span>$20.000.000</span>
       </div>
       <div class="cost-ref-row" style="background:#FFF8F0;">
-        <span>Capital a levantar, con margen</span><span>$60.000.000</span>
+        <span>Capital objetivo a levantar</span><span>$76.000.000</span>
       </div>
       <div class="info-box" style="background:#FFF8F0;border-left:3px solid var(--orange);margin-top:10px;">
         <strong style="color:var(--orange);">Separación clave para el inversor:</strong><br>
@@ -393,14 +421,14 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
   <div id="sc-desc" style="font-size:12px;color:var(--mid);margin-bottom:1rem;padding:8px 14px;background:var(--white);border-radius:4px;border:1px solid var(--border);border-left:3px solid var(--orange);"></div>
   <div class="kpi-grid">
     <div class="kpi" style="--kpi-color:var(--orange)">
-      <div class="kpi-label">Estructura mensual</div>
-      <div class="kpi-value">$10M</div>
-      <div class="kpi-sub">Referencia de operación mensual</div>
+      <div class="kpi-label">Costo operativo</div>
+      <div class="kpi-value">$9,0M→$11,0M</div>
+      <div class="kpi-sub">Base fija + variable por servicios</div>
     </div>
     <div class="kpi" style="--kpi-color:#E24B4A">
       <div class="kpi-label">BE operativo objetivo</div>
       <div class="kpi-value" id="k-be">Mes 5 / Dic</div>
-      <div class="kpi-sub">Ingresos ≥ $10M/mes</div>
+      <div class="kpi-sub">Ingresos ≥ costo operativo + dirección</div>
     </div>
     <div class="kpi" style="--kpi-color:#2C7A2C">
       <div class="kpi-label">Facturación mes 6</div>
@@ -416,12 +444,12 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
     <div class="kpi" style="--kpi-color:#2C7A2C;">
       <div class="kpi-label">Recupero saldo acumulado</div>
-      <div class="kpi-value">Mes 9</div>
-      <div class="kpi-sub">Marzo 2027 — el déficit operativo acumulado queda saldado. Distinto del BE mensual (Dic 2026).</div>
+      <div class="kpi-value">Mes 8</div>
+      <div class="kpi-sub">Marzo 2027 — el déficit operativo acumulado queda saldado, considerando dirección fundador desde el BE y variable desde marzo. Distinto del BE mensual (Dic 2026).</div>
     </div>
     <div class="info-box" style="background:#F5F8FF;border-left:3px solid #185FA5;margin-bottom:0;">
       <strong style="color:#185FA5;">BE mensual vs. recupero del saldo:</strong>
-      <span style="color:var(--dark);"> En diciembre el negocio genera más de lo que gasta cada mes. El saldo acumulado (déficit de los primeros meses) queda saldado en el mes 9. Son dos hitos distintos — ambos aparecen en la tabla y el gráfico.</span>
+      <span style="color:var(--dark);"> En diciembre el negocio genera más de lo que gasta cada mes, incluso incorporando dirección fundador. El saldo acumulado (déficit de los primeros meses) queda saldado en el mes 8. Son dos hitos distintos — ambos aparecen en la tabla y el gráfico.</span>
     </div>
   </div>
 </section>
@@ -437,26 +465,26 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
   </div>
   <div class="rw-grid">
     <div class="rw-block" style="background:#FCEBEB;">
-      <div class="rw-title" style="color:#791F1F;">Déficit acumulado proyectado</div>
-      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M1 Agosto</span><span style="font-weight:700;">−$7.475.000</span></div>
-      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M2 Septiembre</span><span style="font-weight:700;">−$5.700.000</span></div>
-      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M3 Octubre</span><span style="font-weight:700;">−$3.225.000</span></div>
-      <div class="rw-row" style="color:#E24B4A;"><span style="opacity:.8;">M4 Noviembre</span><span style="font-weight:700;">−$575.000</span></div>
-      <div class="rw-row" style="color:#2C7A2C;font-weight:700;"><span>M5 Diciembre ✓ BE</span><span>+$3.475.000</span></div>
-      <div class="rw-row" style="color:#2C7A2C;font-weight:700;"><span>M6 Enero</span><span>+$7.350.000</span></div>
+      <div class="rw-title" style="color:#791F1F;">Resultado mensual proyectado</div>
+      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M1 Agosto</span><span style="font-weight:700;">−$6.495.000</span></div>
+      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M2 Septiembre</span><span style="font-weight:700;">−$4.900.000</span></div>
+      <div class="rw-row" style="color:#791F1F;"><span style="opacity:.8;">M3 Octubre</span><span style="font-weight:700;">−$2.635.000</span></div>
+      <div class="rw-row" style="color:#E24B4A;"><span style="opacity:.8;">M4 Noviembre</span><span style="font-weight:700;">−$225.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;font-weight:700;"><span>M5 Diciembre ✓ BE</span><span>+$465.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;font-weight:700;"><span>M6 Enero</span><span>+$4.100.000</span></div>
       <div style="border-top:1.5px solid rgba(226,75,74,.3);margin:8px 0;padding-top:8px;">
-        <div class="rw-row" style="color:#791F1F;font-size:14px;"><span style="font-weight:700;">Déficit máximo acumulado</span><span style="font-weight:800;">−$16.975.000</span></div>
+        <div class="rw-row" style="color:#791F1F;font-size:14px;"><span style="font-weight:700;">Déficit máximo acumulado</span><span style="font-weight:800;">−$14.255.000</span></div>
       </div>
     </div>
     <div class="rw-block" style="background:#EAF3DE;">
       <div class="rw-title" style="color:#2C7A2C;">Capital operativo recomendado</div>
-      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Runway mínimo</span><span style="font-weight:700;">$17.000.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Runway mínimo</span><span style="font-weight:700;">$15.000.000</span></div>
       <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Runway prudente (recomendado)</span><span style="font-weight:800;font-size:15px;">$20.000.000</span></div>
       <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Meses deficitarios</span><span style="font-weight:700;">4 meses (Ago–Nov)</span></div>
-      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Saldo acum. después M5</span><span style="font-weight:700;">−$13.500.000</span></div>
-      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Saldo acum. después M6</span><span style="font-weight:700;">−$6.150.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Saldo acum. después M5</span><span style="font-weight:700;">−$13.790.000</span></div>
+      <div class="rw-row" style="color:#2C7A2C;"><span style="opacity:.8;">Saldo acum. después M6</span><span style="font-weight:700;">−$9.690.000</span></div>
       <div style="margin-top:10px;padding:8px 10px;background:rgba(44,122,44,.1);border-radius:3px;font-size:11px;color:#2C7A2C;line-height:1.5;">
-        El runway prudente de $20M da margen ante demoras comerciales o imprevistos operativos en los primeros meses.
+        El runway prudente de $20M cubre la rampa inicial y permite absorber el crecimiento de servicios, costos variables y dirección fundador desde el BE.
       </div>
     </div>
   </div>
@@ -477,7 +505,7 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
     <div style="margin-top:9px;font-size:11px;color:var(--mid);line-height:1.6;">
       Cada celda: <strong>cantidad de servicios</strong> y <strong>monto</strong>.
       &nbsp;<span style="color:#E24B4A;font-weight:700;">●</span> Déficit mensual
-      &nbsp;<span style="color:#2C7A2C;font-weight:700;">★</span> Break even (Dic) &nbsp;<span style="color:#0F6E56;font-weight:700;">⭐</span> Recupero saldo acum. (Mes 9)
+      &nbsp;<span style="color:#2C7A2C;font-weight:700;">★</span> Break even (Dic) &nbsp;<span style="color:#0F6E56;font-weight:700;">⭐</span> Recupero saldo acum. (Mes 8)
       &nbsp;<span style="color:#185FA5;font-weight:700;">●</span> Superávit
     </div>
   </div>
@@ -491,7 +519,8 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
       <span><span style="display:inline-block;width:10px;height:10px;background:#6DB86D;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Depósitos</span>
       <span><span style="display:inline-block;width:10px;height:10px;background:#E879A0;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Consorcios</span>
       <span><span style="display:inline-block;width:10px;height:10px;background:var(--orange);border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Industria</span>
-      <span><span style="display:inline-block;width:10px;height:10px;background:rgba(226,75,74,.45);border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Estructura $10M</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:rgba(226,75,74,.45);border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Costo operativo</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:rgba(24,95,165,.35);border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Dirección fundador</span>
       <span><span style="display:inline-block;width:18px;border-top:2px dashed #185FA5;vertical-align:middle;margin-right:3px;"></span>Saldo acumulado</span>
     </div>
   </div>
@@ -531,76 +560,153 @@ footer{background:var(--dark);border-top:3px solid var(--orange);color:#555;text
 
 <!-- 6. ESTRUCTURA -->
 <section id="s-struct">
-  <h2 class="sh">Estructura para inversores <span class="pill">3 opciones</span></h2>
+  <h2 class="sh">Estructura para inversores <span class="pill">2 opciones</span></h2>
   <div class="pending-wrap">
-    <div class="pending-badge">💼 Opciones de entrada — a conversar según perfil del inversor</div>
+    <div class="pending-badge">💼 Dos caminos de entrada — socio participante o inversor financiero</div>
     <p style="font-size:13px;color:var(--mid);margin-bottom:1.2rem;line-height:1.6;">
-      La propuesta permite tres caminos: participación directa, préstamo o una alternativa híbrida con opción de salida. La premisa es mantener una estructura simple, pocos inversores y reglas claras antes de iniciar operaciones.
+      La propuesta apunta a dos inversores de <strong style="color:var(--dark);">$38M cada uno</strong>, tomando como referencia una valuación de <strong style="color:var(--dark);">$190M</strong>, alineada con la facturación proyectada del primer año. El capital total buscado es de <strong style="color:var(--orange);">$76M</strong> para financiar puesta en marcha, runway y caja de seguridad.
     </p>
-    <div class="struct-grid">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.2rem;">
+      <div class="kpi" style="--kpi-color:var(--orange);"><div class="kpi-label">Valuación referencia</div><div class="kpi-value">$190M</div><div class="kpi-sub">≈ facturación proyectada año 1</div></div>
+      <div class="kpi" style="--kpi-color:#185FA5;"><div class="kpi-label">Aporte por inversor</div><div class="kpi-value">$38M</div><div class="kpi-sub">Ticket individual propuesto</div></div>
+      <div class="kpi" style="--kpi-color:#2C7A2C;"><div class="kpi-label">Participación</div><div class="kpi-value">20%</div><div class="kpi-sub">Por inversor participante</div></div>
+      <div class="kpi" style="--kpi-color:#E24B4A;"><div class="kpi-label">Capital objetivo</div><div class="kpi-value">$76M</div><div class="kpi-sub">2 inversores · 40% total</div></div>
+    </div>
+    <div class="struct-grid" style="grid-template-columns:repeat(2,1fr);">
       <div class="struct-card" style="background:#FFF8F0;border:2px solid var(--orange);">
-        <div style="font-size:10px;font-weight:800;color:var(--orange);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Opción A</div>
-        <div class="struct-title" style="color:var(--dark);">Equity</div>
-        <div style="font-size:11px;color:#854F0B;margin-bottom:9px;line-height:1.4;">Ingreso como socio inversor con participación accionaria desde el inicio.</div>
-        <div class="srow"><span>Aporte inversor</span><span style="font-weight:800;color:var(--orange);">$30.000.000</span></div>
+        <div style="font-size:10px;font-weight:800;color:var(--orange);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Opción A · Preferida</div>
+        <div class="struct-title" style="color:var(--dark);">Socio participante</div>
+        <div style="font-size:11px;color:#854F0B;margin-bottom:9px;line-height:1.4;">Ingreso como socio inversor, con participación desde el inicio y posibilidad de continuar en la expansión industrial.</div>
+        <div class="srow"><span>Aporte inversor</span><span style="font-weight:800;color:var(--orange);">$38.000.000</span></div>
         <div class="srow"><span>Participación</span><span style="font-weight:800;color:var(--orange);">20%</span></div>
-        <div class="srow"><span>Retorno</span><span style="font-weight:700;">Dividendos / valorización</span></div>
-        <div class="srow"><span>Perfil</span><span style="font-weight:700;color:#2C7A2C;">Capital paciente</span></div>
+        <div class="srow"><span>Máximo inversores</span><span style="font-weight:700;">2</span></div>
+        <div class="srow"><span>Fundador conserva</span><span style="font-weight:700;color:#2C7A2C;">60%</span></div>
+        <div class="srow"><span>Ventana mes 12</span><span style="font-weight:700;">Continúa o reintegro</span></div>
+        <div class="srow"><span>Salida mes 12</span><span style="font-weight:700;">Reintegro capital aportado</span></div>
+        <div style="margin-top:10px;padding:9px 10px;background:#FFE8D6;border-radius:3px;font-size:12px;color:#854F0B;line-height:1.55;">
+          El inversor participante entra con <strong>$38M por el 20%</strong>. Al mes 12 puede continuar como socio o solicitar el reintegro del capital aportado, extinguiendo su participación.
+        </div>
       </div>
       <div class="struct-card" style="background:#F8F8FF;border:1px solid #AFA9EC;">
         <div style="font-size:10px;font-weight:800;color:#534AB7;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Opción B</div>
-        <div class="struct-title" style="color:#534AB7;">Préstamo</div>
-        <div style="font-size:11px;color:#534AB7;margin-bottom:9px;line-height:1.4;">Capital con retorno fijo. No diluye participación. Relación financiera con plazo definido.</div>
+        <div class="struct-title" style="color:#534AB7;">Inversor financiero</div>
+        <div style="font-size:11px;color:#534AB7;margin-bottom:9px;line-height:1.4;">Capital con retorno fijo, sin participación accionaria. Alternativa para quien prioriza recupero y plazo definido.</div>
+        <div class="srow" style="color:#534AB7;"><span>Aporte inversor</span><span style="font-weight:800;">$38.000.000</span></div>
         <div class="srow" style="color:#534AB7;"><span>Interés</span><span style="font-weight:800;">25% anual</span></div>
-        <div class="srow" style="color:#534AB7;"><span>Cancelación</span><span style="font-weight:800;">Al año</span></div>
+        <div class="srow" style="color:#534AB7;"><span>Total objetivo a devolver</span><span style="font-weight:800;">$47.500.000</span></div>
+        <div class="srow" style="color:#534AB7;"><span>Cancelación</span><span style="font-weight:800;">Mes 12</span></div>
         <div class="srow" style="color:#534AB7;"><span>Equity</span><span style="font-weight:700;">0%</span></div>
         <div class="srow" style="color:#534AB7;"><span>Perfil</span><span style="font-weight:700;">Retorno definido</span></div>
-      </div>
-      <div class="struct-card" style="background:#F0FFF8;border:1px solid #5DCAA5;">
-        <div style="font-size:10px;font-weight:800;color:#085041;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Opción C</div>
-        <div class="struct-title" style="color:#085041;">Híbrido</div>
-        <div style="font-size:11px;color:#0F6E56;margin-bottom:9px;line-height:1.4;">Comienza como equity. Al año, el inversor puede optar por salida con reintegro total.</div>
-        <div class="srow" style="color:#085041;"><span>Inicio</span><span style="font-weight:800;">Equity</span></div>
-        <div class="srow" style="color:#085041;"><span>Opción al año</span><span style="font-weight:800;">Reintegro total</span></div>
-        <div class="srow" style="color:#085041;"><span>Interés salida</span><span style="font-weight:800;">15% anual</span></div>
-        <div class="srow" style="color:#085041;"><span>Perfil</span><span style="font-weight:700;">Socio con puerta de salida</span></div>
       </div>
     </div>
     <table class="comp-tbl">
       <thead><tr>
         <th>Criterio</th>
-        <th style="background:var(--orange);">A — Equity</th>
-        <th style="background:#534AB7;">B — Préstamo</th>
-        <th style="background:#085041;">C — Híbrido</th>
+        <th style="background:var(--orange);">A — Socio participante</th>
+        <th style="background:#534AB7;">B — Financiero</th>
       </tr></thead>
       <tbody>
-        <tr><td>Participación en el negocio</td><td style="font-weight:700;color:var(--orange);">20%</td><td>No</td><td>Sí al inicio</td></tr>
-        <tr><td>Obligación de devolución</td><td>No fija</td><td style="font-weight:700;color:#E24B4A;">Sí, al año</td><td>Solo si ejerce salida</td></tr>
-        <tr><td>Retorno esperado</td><td>Dividendos + valorización</td><td>25% anual</td><td>Equity o salida 15% anual</td></tr>
-        <tr><td>Mejor para</td><td>Inversor estratégico</td><td>Inversor financiero</td><td>Inversor que quiere probar el proyecto</td></tr>
+        <tr><td>Aporte</td><td style="font-weight:700;color:var(--orange);">$38M</td><td style="font-weight:700;color:#534AB7;">$38M</td></tr>
+        <tr><td>Participación</td><td style="font-weight:700;color:var(--orange);">20%</td><td>No</td></tr>
+        <tr><td>Retorno</td><td>Dividendos + valorización</td><td>25% anual</td></tr>
+        <tr><td>Salida al mes 12</td><td>Reintegro del capital aportado o continuidad como socio</td><td>Cancelación financiera objetivo</td></tr>
+        <tr><td>Mejor para</td><td>Inversor estratégico / participante</td><td>Inversor financiero</td></tr>
       </tbody>
     </table>
+    <div class="info-box" style="background:#F5F8FF;border-left:3px solid #185FA5;margin-top:1rem;margin-bottom:0;">
+      <strong style="color:#185FA5;">Compensación de dirección:</strong>
+      <span style="color:var(--dark);"> el fundador no retira sueldo durante la etapa deficitaria. Desde el BE operativo incorpora <strong>$3M mensuales</strong> por tres meses; desde marzo, <strong>$3M + 5% de facturación mensual</strong> como variable de dirección.</span>
+    </div>
   </div>
 </section>
+
+
+<!-- 7. ANEXO FINANCIERO -->
+<section id="s-anexo">
+  <h2 class="sh">Anexo financiero <span class="pill">Caja, salida y uso posterior del capital</span></h2>
+  <div class="info-box" style="background:#FFF8F0;border-left:3px solid var(--orange);">
+    <strong style="color:var(--orange);">Lectura ejecutiva:</strong>
+    <span style="color:var(--dark);"> con un capital objetivo de <strong>$76M</strong> y una inversión inicial estimada de <strong>$35,8M</strong>, la caja inicial disponible para rampa, margen y liquidez es de aproximadamente <strong>$40,2M</strong>. La operación recupera el saldo deficitario en marzo 2027 y al mes 12 proyecta una caja cercana a <strong>$85,5M</strong>, además de conservar los activos de uso.</span>
+  </div>
+
+  <div class="annex-grid">
+    <div class="card" style="padding:.9rem;">
+      <div style="font-family:var(--font-h);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid);margin-bottom:10px;border-bottom:2px solid var(--orange);padding-bottom:6px;">Simulación de caja — escenario conservador</div>
+      <div style="overflow-x:auto;">
+        <table class="annex-table">
+          <thead>
+            <tr>
+              <th>Mes</th><th>Serv.</th><th>Facturación</th><th>Costos + Dirección</th><th>Resultado</th><th>Saldo acum.</th><th>Caja disp.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Inicio</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="pos">$40,2M</td></tr>
+            <tr><td>Ago</td><td>14</td><td>$2,5M</td><td>$9,0M</td><td class="neg">-$6,5M</td><td class="neg">-$6,5M</td><td>$33,7M</td></tr>
+            <tr><td>Sep</td><td>20</td><td>$4,3M</td><td>$9,2M</td><td class="neg">-$4,9M</td><td class="neg">-$11,4M</td><td>$28,8M</td></tr>
+            <tr><td>Oct</td><td>27</td><td>$6,8M</td><td>$9,4M</td><td class="neg">-$2,6M</td><td class="neg">-$14,0M</td><td>$26,2M</td></tr>
+            <tr><td>Nov</td><td>35</td><td>$9,4M</td><td>$9,7M</td><td class="neg">-$0,2M</td><td class="neg">-$14,3M</td><td>$25,9M</td></tr>
+            <tr><td>Dic</td><td>47</td><td>$13,5M</td><td>$13,0M</td><td class="pos">+$0,5M</td><td class="neg">-$13,8M</td><td>$26,4M</td></tr>
+            <tr><td>Ene</td><td>55</td><td>$17,4M</td><td>$13,3M</td><td class="pos">+$4,1M</td><td class="neg">-$9,7M</td><td>$30,5M</td></tr>
+            <tr><td>Feb</td><td>58</td><td>$19,1M</td><td>$13,3M</td><td class="pos">+$5,8M</td><td class="neg">-$3,9M</td><td>$36,3M</td></tr>
+            <tr><td>Mar</td><td>61</td><td>$20,9M</td><td>$14,5M</td><td class="pos">+$6,4M</td><td class="pos">+$2,5M</td><td class="pos">$42,7M</td></tr>
+            <tr><td>Abr</td><td>64</td><td>$22,7M</td><td>$14,7M</td><td class="pos">+$8,0M</td><td class="pos">+$10,5M</td><td class="pos">$50,7M</td></tr>
+            <tr><td>May</td><td>67</td><td>$24,5M</td><td>$14,8M</td><td class="pos">+$9,6M</td><td class="pos">+$20,2M</td><td class="pos">$60,4M</td></tr>
+            <tr><td>Jun</td><td>72</td><td>$26,6M</td><td>$15,1M</td><td class="pos">+$11,5M</td><td class="pos">+$31,6M</td><td class="pos">$71,8M</td></tr>
+            <tr><td>Jul</td><td>79</td><td>$29,1M</td><td>$15,4M</td><td class="pos">+$13,6M</td><td class="pos">+$45,3M</td><td class="pos">$85,5M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="cash-card" style="margin-bottom:10px;">
+        <h3>Caja y activos al mes 12</h3>
+        <p>Si la proyección se cumple, SANEVA llega al mes 12 con caja proyectada cercana a <strong style="color:#2C7A2C;">$85,5M</strong>, luego de absorber la rampa inicial, pagar la estructura operativa y contemplar dirección fundador desde el BE.</p>
+        <p style="margin-top:6px;">A eso se suman los <strong>activos de uso</strong>: vehículo, adaptación, equipamiento, habilitación, marca, cartera comercial y procesos operativos validados.</p>
+      </div>
+      <div class="cash-card" style="border-left-color:#185FA5;">
+        <h3>Ventana de salida</h3>
+        <p>Mientras exista la posibilidad de reintegro al mes 12, la caja excedente puede permanecer líquida y colocada en instrumentos conservadores de corto plazo, priorizando disponibilidad sobre rendimiento.</p>
+        <p style="margin-top:6px;">Si ambos inversores continúan, esa caja deja de ser solo respaldo de salida y se convierte en capital de expansión.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:1rem;">
+    <h2 class="sh" style="font-size:20px;margin-bottom:.8rem;">Uso estratégico de caja si los inversores continúan</h2>
+    <div class="use-grid">
+      <div class="use-card"><strong>Reserva operativa</strong><span>Mantener 3 meses de estructura cubierta para operar sin estrés, sostener calidad y evitar decisiones apuradas.</span></div>
+      <div class="use-card" style="border-top-color:#2C7A2C;"><strong>Segunda unidad</strong><span>Comprar o preparar un segundo vehículo/equipo operativo cuando la demanda industrial justifique duplicar capacidad.</span></div>
+      <div class="use-card" style="border-top-color:#185FA5;"><strong>Higiene industrial</strong><span>Financiar equipamiento, capacitación y primeros pilotos de limpieza técnica de máquinas, tanques, bases y depósitos.</span></div>
+      <div class="use-card" style="border-top-color:#C2185B;"><strong>Habilitaciones y residuos</strong><span>Avanzar en permisos, alianzas o capacidad documental para disposición final y gestión de residuos vinculados al saneamiento.</span></div>
+      <div class="use-card" style="border-top-color:#BA7517;"><strong>Contratos industriales</strong><span>Disponer de capital de trabajo para contratos grandes: stock, personal eventual, plazos de cobro y exigencias documentales.</span></div>
+      <div class="use-card" style="border-top-color:#534AB7;"><strong>Formación y certificaciones</strong><span>Desarrollar capacitaciones, procedimientos y constancias técnicas para clientes industriales y yacimientos.</span></div>
+    </div>
+  </div>
+</section>
+
 
 </main>
 
 <footer>
   <div class="footer-logo">SANE<span>VA</span></div>
   <div class="footer-sub">Saneamiento · Higiene · Fumigación · Norpatagonia</div>
-  <div style="font-size:11px;">Proyección conservadora · Capital $60M · BE Diciembre 2026 · Recupero saldo Mes 9.</div>
+  <div style="font-size:11px;">Proyección conservadora · Capital $76M · BE Diciembre 2026 · Recupero saldo Mes 8.</div>
 </footer>
 
 <script>
 // DATA
 const MESES = ['Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul'];
-const STRUCT = 10000000;
+const OPERATING_BASE = 8600000; // base mensual fija aproximada
+const VARIABLE_PER_SERVICE = 30000; // costo variable promedio por servicio
+const FOUNDER_BASE = 3000000; // dirección fija desde BE operativo
+const FOUNDER_VARIABLE_RATE = 0.05; // desde marzo: 5% de facturación mensual
 
 const MESES12 = ['Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul'];
 
 const DATA = {
   conservador: {
-    desc: 'Agosto–septiembre: aprendizaje y validación operativa. Octubre–noviembre: crecimiento B2B gradual. Diciembre: break even mensual. Mes 9 (Marzo): recupero del saldo acumulado.',
+    desc: 'Agosto–septiembre: aprendizaje y validación operativa. Octubre–noviembre: crecimiento B2B gradual. Diciembre: break even mensual. Mes 8 (Marzo): recupero del saldo acumulado con costo variable y dirección fundador.',
     casas:     {n:[8,10,12,15,20,20,18,16,14,12,12,14], t:175000},
     comercio:  {n:[3,4,5,6,7,8,9,10,11,12,13,14],       t:150000},
     gastro:    {n:[3,4,5,6,7,8,9,10,11,12,13,14],        t:225000},
@@ -646,9 +752,14 @@ function computeMonths(view) {
       row[sg] = {n: d[sg].n[m], ing};
       tot += ing;
     });
-    const res = tot - STRUCT;
+    const services = segs.reduce((sum, sg) => sum + d[sg].n[m], 0);
+    const opCost = OPERATING_BASE + (services * VARIABLE_PER_SERVICE);
+    let founder = 0;
+    if(m >= 4 && m <= 6) founder = FOUNDER_BASE;
+    if(m >= 7) founder = FOUNDER_BASE + (tot * FOUNDER_VARIABLE_RATE);
+    const res = tot - opCost - founder;
     acSaldo += res;
-    row.tot = tot; row.res = res; row.saldo = acSaldo;
+    row.tot = tot; row.services = services; row.opCost = opCost; row.founder = founder; row.res = res; row.saldo = acSaldo;
     months.push(row);
   }
   return months;
@@ -674,25 +785,25 @@ function render(view) {
   // Runway bar
   const runway = 20000000; // prudente
   const inv = 35800000; // inversión inicial estimada
-  const margen = 4200000; // margen para redondear a 60M
-  const total = 60000000;
+  const margen = 20200000; // caja/margen adicional para llegar a 76M
+  const total = 76000000;
   document.getElementById('rw-bar-visual').innerHTML = `
     <div style="height:30px;border-radius:3px;overflow:hidden;display:flex;margin-bottom:8px;">
-      <div style="width:60%;background:#FF6A00;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
+      <div style="width:47%;background:#FF6A00;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
         INVERSIÓN INICIAL $35,8M
       </div>
-      <div style="width:33%;background:#E24B4A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
+      <div style="width:26%;background:#E24B4A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
         RUNWAY $20M
       </div>
-      <div style="width:7%;background:#4A4F57;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
-        MG
+      <div style="width:27%;background:#4A4F57;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;">
+        CAJA
       </div>
     </div>
     <div style="display:flex;gap:20px;font-size:11px;color:#4A4F57;align-items:center;flex-wrap:wrap;">
       <span><span style="display:inline-block;width:10px;height:10px;background:#FF6A00;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Inversión inicial: <strong>$35,8M</strong></span>
       <span><span style="display:inline-block;width:10px;height:10px;background:#E24B4A;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Runway prudente: <strong>$20M</strong></span>
-      <span><span style="display:inline-block;width:10px;height:10px;background:#4A4F57;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Margen de seguridad: <strong>$4,2M</strong></span>
-      <span style="margin-left:auto;font-weight:800;color:#1F2328;font-size:13px;">Capital: $60M</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#4A4F57;border-radius:2px;margin-right:4px;vertical-align:middle;"></span>Caja / margen adicional: <strong>$20,2M</strong></span>
+      <span style="margin-left:auto;font-weight:800;color:#1F2328;font-size:13px;">Capital objetivo: $76M</span>
     </div>`;
 
   // Table
@@ -731,7 +842,8 @@ function render(view) {
   // Total, estructura, resultado, saldo
   const extraRows = [
     {lbl:'💰 Facturación',key:'tot',bg:'#F0FFF0',col:'#2C7A2C',bold:true},
-    {lbl:'📉 Estructura',key:'eg',bg:'#FFF0F0',col:'#791F1F'},
+    {lbl:'📉 Costo op.',key:'opCost',bg:'#FFF0F0',col:'#791F1F'},
+    {lbl:'👤 Dirección',key:'founder',bg:'#F5F8FF',col:'#185FA5'},
     {lbl:'📊 Resultado',key:'res',dyn:true},
     {lbl:'🏦 Saldo acum.',key:'saldo',dynS:true},
   ];
@@ -739,7 +851,7 @@ function render(view) {
     tbl+=`<div style="display:grid;${cols};gap:0;margin-bottom:1px;">`;
     tbl+=`<div class="fl" style="font-weight:700;color:${r.col||'#4A4F57'};">${r.lbl}</div>`;
     months.forEach((m,i)=>{
-      const v=r.key==='eg'?STRUCT:m[r.key];
+      const v=m[r.key];
       const isBe=m.res>=0&&(i===0||months[i-1].res<0);
       const isRec=i===recuperoIdx;
       let bg,col,txt;
@@ -761,7 +873,8 @@ function render(view) {
     backgroundColor:COLORS[sg],
     stack:'ing'
   }));
-  datasets.push({label:'Estructura $10M',data:months.map(()=>10),backgroundColor:'rgba(226,75,74,.4)',stack:'eg'});
+  datasets.push({label:'Costo operativo',data:months.map(m=>+(m.opCost/1e6).toFixed(2)),backgroundColor:'rgba(226,75,74,.4)',stack:'eg'});
+  datasets.push({label:'Dirección fundador',data:months.map(m=>+(m.founder/1e6).toFixed(2)),backgroundColor:'rgba(24,95,165,.35)',stack:'eg'});
   datasets.push({
     label:'Saldo acum.',
     data:months.map(m=>+(m.saldo/1e6).toFixed(2)),
